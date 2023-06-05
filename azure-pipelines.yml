@@ -19,9 +19,27 @@ steps:
   inputs:
     command: 'restore'
     projects: '**/*.csproj'
-    - task: DotNetCoreCLI@2
+    restoreArguments: '$(buildConfiguration)'
+    feedsToUse: 'select'
+- task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: '**/*.csproj'
-    arguments: 'restoreArguments': '$(buildConfiguration)'
-    feedsToUse: 'select'
+    arguments: '$(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '$(buildConfiguration)'
+ 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/*Test.csproj'
+    arguments: '--no-restore --no-build'
+  displayName: 'Run Tests'    
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '$(buildConfiguration)'
