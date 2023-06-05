@@ -31,10 +31,10 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*Test.csproj'
-    arguments: - task: DotNetCoreCLI@2
+    arguments: '--no-restore --no-build'
+  displayName: 'Run Tests'    
+- task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: '''--no-restore --no-build'''
-  displayName: 'Run Tests'    
-
+    arguments: '''--configuration $(buildConfiguration) --no-restore'''
