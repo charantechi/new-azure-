@@ -40,7 +40,11 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: '''$(buildConfiguration)'''
+    arguments:- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '''''''$(buildConfiguration)'''''''
     arguments: '--no-restore --no-build'
   displayName: 'Run Tests'    
 - task: DotNetCoreCLI@2
